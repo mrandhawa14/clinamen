@@ -66,6 +66,7 @@ def material(name, color, rough=0.6, metal=0.0, transmission=0.0, alpha=1.0, emi
 
 def finish(obj, mat, name):
     obj.name = name
+    obj.data.name = name
     obj.data.materials.clear()
     obj.data.materials.append(mat)
     for poly in obj.data.polygons:
@@ -81,7 +82,42 @@ def cylinder(name, r, depth, z, verts=24, caps=True):
     return o
 
 
+def canonicalize_all():
+    """Rebuild every mesh as sorted triangles so each build writes the exact same
+    file. Blender's face order (and how the exporter splits quads) can change
+    between runs; the shape doesn't, so we write it in one fixed order:
+    each triangle starts at its lowest vertex (winding kept), triangles sorted."""
+    for obj in bpy.data.objects:
+        if obj.type != "MESH":
+            continue
+        bm = bmesh.new()
+        bm.from_mesh(obj.data)
+        bmesh.ops.triangulate(bm, faces=bm.faces[:], quad_method="FIXED", ngon_method="EAR_CLIP")
+        bm.verts.index_update()
+        verts = [tuple(v.co) for v in bm.verts]
+        tris = []
+        for f in bm.faces:
+            ids = [v.index for v in f.verts]
+            k = ids.index(min(ids))
+            tris.append(tuple(ids[k:] + ids[:k]))
+        bm.free()
+        tris.sort()
+        mats = list(obj.data.materials)
+        name = obj.data.name
+        mesh = bpy.data.meshes.new(name + "_c")
+        mesh.from_pydata(verts, [], tris)
+        for m in mats:
+            mesh.materials.append(m)
+        for poly in mesh.polygons:
+            poly.use_smooth = False
+        old = obj.data
+        obj.data = mesh
+        bpy.data.meshes.remove(old)
+        mesh.name = name
+
+
 def export(name):
+    canonicalize_all()
     path = os.path.join(OUT, f"{name}.glb")
     bpy.ops.export_scene.gltf(filepath=path, export_format="GLB", export_apply=True)
     print(f"exported {os.path.relpath(path, ROOT)} ({os.path.getsize(path) // 1024} KB)")
