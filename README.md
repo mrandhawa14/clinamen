@@ -4,8 +4,9 @@ A tiny living world for your screen. A low-poly island on a diorama stand that
 follows the **real sun and seasons** where you are: long golden shadows at dusk,
 moonlight and stars at night, red and gold trees in autumn, snow in January.
 
-It's meant to run all day, like a wallpaper. Next up: creatures whose genes
-decide their bodies, evolving on the island over weeks and months.
+Where it's going: a universe that only knows the laws you give it. Worlds start
+with hydrogen and gravity, and new laws of nature arrive as upgrades. See
+[docs/DESIGN.md](docs/DESIGN.md).
 
 ## Run it
 
