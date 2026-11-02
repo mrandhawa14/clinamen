@@ -1,7 +1,7 @@
 {
   "name": "terrarium",
   "version": "1.0.0",
-  "description": "",
+  "description": "A living low-poly diorama world that follows the real sun and seasons",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -12,7 +12,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "GPL-3.0-only",
   "type": "module",
   "dependencies": {
     "simplex-noise": "^4.0.3",
