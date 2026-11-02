@@ -15,7 +15,7 @@ import {
 } from './upgrades.js';
 
 const params = new URLSearchParams(location.search);
-const seedText = params.get('seed') || 'terrarium';
+const seedText = params.get('seed') || 'clinamen';
 const seed = hashString(seedText);
 // Location: URL ?lat=&lon=, else approximate longitude from the time zone.
 const lat = parseFloat(params.get('lat') ?? '45');
@@ -224,7 +224,7 @@ addEventListener('resize', () => {
 });
 
 // Hooks for automated checks.
-window.__terrarium = {
+window.__clinamen = {
   ready: true,
   counts: diorama.counts,
   get world() { return world; },

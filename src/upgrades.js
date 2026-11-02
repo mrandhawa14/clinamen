@@ -25,7 +25,7 @@ export const MODULES = [
     blurb: 'The planet tilts. The year turns through spring, summer, autumn and winter.' },
 ];
 
-const STORE_KEY = (seed) => `terrarium.world.${seed}`;
+const STORE_KEY = (seed) => `clinamen.world.${seed}`;
 
 function rand(w) {
   let a = (w.rng = (w.rng + 0x6d2b79f5) | 0);

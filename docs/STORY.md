@@ -1,4 +1,4 @@
-# Terrarium — Story mode: The Archivist
+# Clinamen — Story mode: The Archivist
 
 Status: draft v1 · 2026-11-01
 
@@ -68,7 +68,7 @@ each one.
 
 | Right | Wrong |
 |---|---|
-| "Hydrogen. Almost nothing else yet." | "Welcome to Terrarium! Let's learn the controls!" |
+| "Hydrogen. Almost nothing else yet." | "Welcome to Clinamen! Let's learn the controls!" |
 | "The water came too early. It boiled away into space. The Archive has seen this before." | "You failed! Try again." |
 | "This world has no moon. Its seasons will wander. Let's see what lives here." | "Mission failed: no moon." |
 

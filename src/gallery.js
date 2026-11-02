@@ -2,6 +2,8 @@
 // URL: assets.html?asset=<id>&t=<0..1> freezes an asset at a moment (used for checks).
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { makeHeightFn, hashString, seasonState, smoothstep, mulberry32 } from './world.js';
 import { buildDiorama } from './diorama.js';
 import { buildSky } from './sky.js';
@@ -59,6 +61,26 @@ const ASSETS = [
     caption: 'A massive star swells, collapses and explodes, throwing out the elements it forged: oxygen (teal), sulfur (orange), hydrogen (red). A neutron star is left.',
     make: () => makeSupernova() },
 
+  { group: 'Made in Blender', id: 'jar', name: 'Living terrarium', scene: 'studio', dur: 12, cam: [0, 1.6, 6.2], target: [0, 1.05, 0],
+    caption: 'A glass jar built by blender/build_assets.py, with a living piece of the world inside: the idea behind wallpaper terrariums.',
+    make: (c) => {
+      const g = new THREE.Group();
+      loadModel('terrarium_jar', g);
+      const d = buildDiorama(height, islandSeed);
+      d.show({ season: seasonState(180, 45), sea: 0, veg: new Array(d.geo.spots.length).fill(1) });
+      d.group.scale.setScalar(0.088);
+      d.group.position.y = 0.31 + 3.67 * 0.088;
+      g.add(d.group);
+      return { object: g, update: (t, time) => { d.tick(time); g.rotation.y = time * 0.15; } };
+    } },
+  { id: 'archive', name: 'The Archive', scene: 'studio', dur: 10, cam: [0, 0.4, 5], target: [0, 0, 0],
+    caption: 'The narrator of story mode: a dark crystal with a glowing core, built by blender/build_assets.py.',
+    make: () => {
+      const g = new THREE.Group();
+      loadModel('archive_crystal', g);
+      return { object: g, update: (t, time) => { g.rotation.y = time * 0.3; g.position.y = Math.sin(time * 0.8) * 0.08; } };
+    } },
+
   { group: 'Accident tree', id: 'icons', name: 'Icons', scene: 'icons',
     caption: 'One icon per accident, in each state of the accident tree.' },
 ];
@@ -83,7 +105,7 @@ function resize() {
 addEventListener('resize', resize);
 
 // --- Scenes ------------------------------------------------------------------------
-const islandSeed = hashString('terrarium');
+const islandSeed = hashString('clinamen');
 const height = makeHeightFn(islandSeed);
 
 function starfield(n = 1500) {
@@ -96,6 +118,13 @@ function starfield(n = 1500) {
   g.setAttribute('position', new THREE.Float32BufferAttribute(p, 3));
   return new THREE.Points(g, new THREE.PointsMaterial({ color: '#cfd8ff', size: 1.2, sizeAttenuation: false }));
 }
+
+// Models exported from Blender (public/models/*.glb)
+const gltf = new GLTFLoader();
+function loadModel(name, into) {
+  gltf.load(`/models/${name}.glb`, (m) => into.add(m.scene), undefined, (e) => console.error(`model ${name}:`, e));
+}
+let studioEnv = null;
 
 function buildScene(a) {
   const scene = new THREE.Scene();
@@ -115,6 +144,15 @@ function buildScene(a) {
     ctx.tick = d.tick;
     camera.position.setFromSphericalCoords(44, 0.95, 0.6).add(new THREE.Vector3(0, -0.6, 0));
     controls.target.set(0, -0.6, 0);
+  } else if (a.scene === 'studio') {
+    scene.background = new THREE.Color('#0b0d14');
+    studioEnv ??= new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.04).texture;
+    scene.environment = studioEnv;
+    const key = new THREE.DirectionalLight('#fff4e0', 2.2);
+    key.position.set(-4, 6, 5);
+    scene.add(key, new THREE.HemisphereLight('#8fa6d8', '#2a2018', 0.6));
+    camera.position.set(...a.cam);
+    controls.target.set(...a.target);
   } else {
     scene.background = new THREE.Color(a.scene === 'void' ? '#030308' : '#05060c');
     scene.add(starfield());

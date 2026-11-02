@@ -1,14 +1,15 @@
 {
-  "name": "terrarium",
+  "name": "clinamen",
   "version": "1.0.0",
-  "description": "A living low-poly diorama world that follows the real sun and seasons",
+  "description": "A universe shaped by chance: worlds built from hydrogen by rare accidents. Explore them from orbit to the ground, in your browser.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite",
     "build": "vite build",
     "deploy": "npm run build && wrangler deploy",
-    "preview": "npm run build && wrangler dev"
+    "preview": "npm run build && wrangler dev",
+    "assets:blender": "blender --background --factory-startup --python blender/build_assets.py"
   },
   "keywords": [],
   "author": "",

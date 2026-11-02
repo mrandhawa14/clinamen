@@ -1,4 +1,4 @@
-# Terrarium — Design
+# Clinamen — Design
 
 > A universe shaped by the laws of nature and the accidents that happened to it.
 
@@ -8,7 +8,7 @@ Status: draft v2 · 2026-11-01
 
 ## 1. The idea
 
-Every god game gives the player **powers**. Terrarium gives the player
+Every god game gives the player **powers**. Clinamen gives the player
 **accidents**.
 
 The laws of nature are always there: gravity, fusion, chemistry, heat, weather.
@@ -29,6 +29,15 @@ Without plate tectonics? If water arrived too early?*
 
 **Story mode:** *The Archivist*. An optional 8-chapter story that rebuilds
 Earth's history and teaches every mechanic. See [STORY.md](STORY.md).
+
+### The name
+
+Ancient Greek atomists (Epicurus, and later Lucretius in *On the Nature of
+Things*) taught that atoms fall straight through the void and would never meet,
+except that, now and then, one **swerves** a tiny amount, by pure chance. That
+swerve causes the first collision, and from collisions comes everything. They
+called the swerve the **clinamen** (say *KLY-nuh-men*). This project is that
+idea: worlds built from hydrogen by small accidents.
 
 ## 2. Principles
 
@@ -415,4 +424,3 @@ Each step is a finished release.
   worlds.
 - **"What if" constants** (stronger gravity, different freezing point): a
   separate experiment mode?
-- **Project name:** "Terrarium" may be too small for a universe.

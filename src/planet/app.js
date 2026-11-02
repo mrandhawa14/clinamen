@@ -1,4 +1,4 @@
-// Terrarium planet: the whole world, from orbit down to the ground.
+// Clinamen planet: the whole world, from orbit down to the ground.
 // URL: ?seed=<text>  ?mode=wallpaper  ?view=lat,lon,altKm,headingDeg (pins a spot)  ?date=<ISO>
 import * as THREE from 'three';
 import { hashString } from '../world.js';
@@ -8,7 +8,7 @@ import { makePlanetCamera } from './camera.js';
 import { makePlanetSky } from './sky.js';
 
 const params = new URLSearchParams(location.search);
-const seedText = params.get('seed') || 'terrarium';
+const seedText = params.get('seed') || 'clinamen';
 const seed = hashString(seedText);
 const wallpaper = params.get('mode') === 'wallpaper';
 const deg = Math.PI / 180;
