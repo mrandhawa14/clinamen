@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terrarium</title>
+  <style>
+    :root { --panel: rgb(14 16 22 / 0.72); --text: #f2f4f8; --muted: #a3a9b6; --accent: #8be3d2; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; overflow: hidden; background: #0a0f24; color: var(--text);
+      font: 13px/1.4 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif; }
+    canvas { display: block; }
+    .panel { position: fixed; left: 16px; bottom: 16px; width: min(320px, calc(100vw - 32px));
+      background: var(--panel); border-radius: 14px; padding: 14px 16px; transition: opacity .3s; }
+    .row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    #label { font-weight: 600; font-size: 14px; }
+    label { display: block; margin-top: 10px; color: var(--muted); font-size: 12px; }
+    input[type=range] { width: 100%; accent-color: var(--accent); }
+    button { font: inherit; color: var(--text); background: rgb(255 255 255 / 0.08); border: 0;
+      border-radius: 8px; padding: 5px 10px; cursor: pointer; }
+    button:hover { background: rgb(255 255 255 / 0.14); }
+    #live.on { background: var(--accent); color: #0b2a26; font-weight: 600; }
+    .foot { margin-top: 10px; color: var(--muted); font-size: 12px; }
+    body.clean .panel { opacity: 0; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <div class="row"><span id="label">…</span><button id="live" title="Follow the real clock">Live</button></div>
+    <label for="time">Time of day</label>
+    <input id="time" type="range" min="0" max="1439" step="1" />
+    <label for="day">Day of year</label>
+    <input id="day" type="range" min="1" max="365" step="1" />
+    <div class="row foot"><span>World: <b id="seed"></b></span><button id="newworld">New world</button></div>
+    <div class="foot">Drag to orbit · scroll to zoom · H hides this · N new world</div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
