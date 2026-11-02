@@ -4,9 +4,10 @@ A tiny living world for your screen. A low-poly island on a diorama stand that
 follows the **real sun and seasons** where you are: long golden shadows at dusk,
 moonlight and stars at night, red and gold trees in autumn, snow in January.
 
-Where it's going: a universe that only knows the laws you give it. Worlds start
-with hydrogen and gravity, and new laws of nature arrive as upgrades. See
-[docs/DESIGN.md](docs/DESIGN.md).
+Where it's going: a universe shaped by the laws of nature and the accidents
+that happened to it. Worlds start with hydrogen and gravity. Rare events, like
+the impact that made our Moon, happen by fate or when you choose, and when they
+happen changes everything after. See [docs/DESIGN.md](docs/DESIGN.md).
 
 ## Run it
 
