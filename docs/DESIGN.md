@@ -79,8 +79,11 @@ through eras. Each era runs its own simulation at its own scale and hands its
 | 5. Surface | Oceans, weather, rivers | Thermodynamics, fluids (+ water if it arrived) | Climate, coastlines, soil |
 | 6. Life | Chemistry → cells → creatures | Biology, genetics, evolution (if life started) | Living world |
 
-The diorama island built in v0.1 is the **Era 5 view**: the zoom into a patch of
-the planet's surface.
+The world is a **whole planet**, not a fixed island. Land is something the
+world makes (volcanoes, cooling crust, plates, erosion), so some worlds get a
+supercontinent, some scattered islands, some almost all ocean, and a world
+without the water accident is all desert. (In the first planet build, land
+still comes from noise; the simulation replaces it later.)
 
 ## 5. The accident catalogue
 
@@ -309,6 +312,64 @@ timing-dependent outcomes and the modules it brings.
 - **"While you were away"** recap on return.
 - **Compare:** the same seed with different accidents, side by side.
 
+## 11a. Exploring the planet
+
+**Seamless zoom.** One continuous view from space to the ground:
+space → planet → continent → valley → ground → one creature. No cuts, no
+loading screens. The planet is a cube-sphere whose six faces are quadtrees:
+chunks near the camera split into smaller, more detailed chunks and far ones
+merge back. Chunk vertices are stored relative to the chunk centre, so precision
+holds metres above an Earth-sized planet.
+
+**Camera modes**
+
+| Mode | What it does |
+|---|---|
+| Orbit | Turn the whole planet in space |
+| Fly to a spot | Click anywhere and glide down to it |
+| Ground view | Low over the land, looking toward the horizon |
+| Follow | Pick a creature or species; the camera stays with it (with creatures) |
+| Director | Goes on its own to wherever something is happening |
+
+**Species:** click a creature to see its species, genes and family tree; a
+species list flies the camera to where it lives; a map layer shows ranges.
+
+**Two-level simulation.** The whole planet runs coarsely (climate, oceans,
+plates, species as populations). Only where the camera looks is detail
+generated: fine terrain, single trees, individual creatures, always derived
+from the coarse state so they agree.
+
+## 11b. Always-on wallpaper
+
+- **Wallpaper mode:** the director drifts over the world like a nature
+  documentary and goes to whatever is happening.
+- **Pinned view:** a favourite spot, a species to follow, or the whole planet
+  turning with the real day/night line.
+- **Living terrariums:** pin any part of the planet as a small glass-cased
+  diorama that keeps living. A desktop can show one or a shelf of them; each
+  monitor can show a different place. The planet is the world; terrariums are
+  windows into it.
+- **Battery:** wallpaper renders only what's on screen, at 10–20 fps, stops
+  when covered, while the simulation continues at the coarse level.
+- **Platforms:** Mac via Plash (any web page as wallpaper), later a small
+  native app; Windows via Lively Wallpaper or Wallpaper Engine; a Mac
+  screensaver; the Aerie Fire TV screensaver; a phone widget and notifications
+  for big events.
+
+## 11c. Realism and AI world models
+
+Realism comes first from the simulation and rendering: light scattering for
+sky colour, sun and moon from real dates, ocean glint, terrain detail to metres,
+weather. A **realistic render style** can sit beside low-poly.
+
+AI world models (e.g. Google DeepMind's Genie) generate plausible video but
+don't know the world's state, aren't deterministic and run on paid servers. As
+of November 2026 there is no public API (Project Genie is a web app for Google
+AI Ultra subscribers, 60-second sessions). If an API opens, it fits as an
+optional **"visit in photoreal"** lens: a snapshot of one spot of the
+simulated world (terrain, biome, weather, creatures) becomes a short photoreal
+walk. The simulation stays the truth; nothing depends on the model.
+
 ## 12. Technology
 
 - Browser first: three.js for rendering, **WebGPU compute** for simulation.
@@ -322,6 +383,10 @@ timing-dependent outcomes and the modules it brings.
 
 Each step is a finished release.
 
+0. **Planet (first build done):** seamless cube-sphere LOD from orbit to
+   ground, biomes, trees, real sun, camera modes (orbit, fly-to, ground,
+   director), pinned wallpaper links. The old island lives at `island.html`;
+   procedural assets at `assets.html`.
 1. **Foundation:** world clock, speeds, ledger, snapshots, journal, the
    accident definition format, fate rolls, the accident tree screen, 48 h undo.
    (A first prototype of triggers and undo exists in `src/upgrades.js`, built
