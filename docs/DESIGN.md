@@ -27,6 +27,9 @@ comes next.
 Every world is an experiment. *What does a planet become without a moon?
 Without plate tectonics? If water arrived too early?*
 
+**Story mode:** *The Archivist*. An optional 8-chapter story that rebuilds
+Earth's history and teaches every mechanic. See [STORY.md](STORY.md).
+
 ## 2. Principles
 
 1. **Real laws, game resolution.** We use the real equations (conservation of
